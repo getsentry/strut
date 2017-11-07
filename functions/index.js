@@ -1,10 +1,13 @@
 const functions = require('firebase-functions');
+const pubsub = require('@google-cloud/pubsub')();
 
 const Buffer = require('buffer').Buffer;
 const crypto = require('crypto');
+const uuid4 = require('uuid/v4');
 
 const CONFIG = functions.config().lockitron || {};
 const LOCKITRON_LOCK_ID = Buffer.from(CONFIG.lock_id || 'TEST_LOCK_ID');
+const PUBLISHER = pubsub.topic(CONFIG.pubsub_topic || 'test-topic').publisher();
 
 // TODO: needs databass
 const USERS = {
@@ -70,11 +73,15 @@ exports.lockitron = functions.https.onRequest(function(request, response) {
   }
 
   var event = {
+    id: uuid4(),
     user: user,
   };
 
-  // Publish to PubSub topic
-  console.log(event);
+  PUBLISHER.publish(Buffer.from(JSON.stringify(event)), function(err, messageId) {
+    if (err) {
+      return response.status(500).json(err);
+    }
+    return response.status(201).end();
+  });
 
-  return response.status(201).end();
 });
