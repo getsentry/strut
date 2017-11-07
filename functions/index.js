@@ -12,16 +12,15 @@ const PUBLISHER = pubsub.topic(CONFIG.pubsub_topic || 'test-topic').publisher();
 // TODO: needs databass
 const USERS = {
   'matt@sentry.io': {
-    id: 'matt@sentry.io',
     bio: 'Dope',
-    song: {
+    songs: [{
       type: 'youtube',
-      data: {
-        id: 'abc',
-        t: 30,
-        d: 5,
+      options: {
+        video_id: 'abc',
+        start: 30,
+        duration: 5,
       }
-    }
+    }]
   }
 };
 
@@ -46,6 +45,7 @@ exports.lockitron = functions.https.onRequest(function(request, response) {
       data = payload.data || {},
       activity = data.activity || {},
       user = data.user || {},
+      email = user.email,
       lock = data.lock || {},
       lock_id = Buffer.from(lock.id || '');
 
@@ -66,7 +66,7 @@ exports.lockitron = functions.https.onRequest(function(request, response) {
   // At this point, we have an unlocked lock
 
   // Lookup user
-  user = USERS[user.email];
+  user = USERS[email];
 
   if (!user) {
     return permissionDenied(response);
@@ -74,7 +74,11 @@ exports.lockitron = functions.https.onRequest(function(request, response) {
 
   var event = {
     id: uuid4(),
-    user: user,
+    user: {
+      email: email,
+      bio: user.bio,
+      song: user.songs[Math.floor(Math.random()*user.songs.length)],
+    },
   };
 
   PUBLISHER.publish(Buffer.from(JSON.stringify(event)), function(err, messageId) {
