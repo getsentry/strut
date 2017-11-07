@@ -1,5 +1,10 @@
+const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 const pubsub = require('@google-cloud/pubsub')();
+
+admin.initializeApp(functions.config().firebase);
+
+const firestore = admin.firestore();
 
 const Buffer = require('buffer').Buffer;
 const crypto = require('crypto');
@@ -8,21 +13,6 @@ const uuid4 = require('uuid/v4');
 const CONFIG = functions.config().lockitron || {};
 const LOCKITRON_LOCK_ID = Buffer.from(CONFIG.lock_id || 'TEST_LOCK_ID');
 const PUBLISHER = pubsub.topic(CONFIG.pubsub_topic || 'test-topic').publisher();
-
-// TODO: needs databass
-const USERS = {
-  'matt@sentry.io': {
-    bio: 'Dope',
-    songs: [{
-      type: 'youtube',
-      options: {
-        video_id: 'abc',
-        start: 30,
-        duration: 5,
-      }
-    }]
-  }
-};
 
 function permissionDenied(response) {
   response.status(403).end();
@@ -65,27 +55,36 @@ exports.lockitron = functions.https.onRequest(function(request, response) {
 
   // At this point, we have an unlocked lock
 
-  // Lookup user
-  user = USERS[email];
-
-  if (!user) {
-    return permissionDenied(response);
-  }
-
-  var event = {
-    id: uuid4(),
-    user: {
-      email: email,
-      bio: user.bio,
-      song: user.songs[Math.floor(Math.random()*user.songs.length)],
-    },
-  };
-
-  PUBLISHER.publish(Buffer.from(JSON.stringify(event)), function(err, messageId) {
-    if (err) {
-      return response.status(500).json(err);
+  firestore.collection('users').doc(email).get().then(function(doc) {
+    if (!doc.exists) {
+      return permissionDenied(response);
     }
-    return response.status(201).end();
+
+    user = doc.data();
+
+    if (!user) {
+      return permissionDenied(response);
+    }
+
+    var event = {
+      id: uuid4(),
+      user: {
+        email: email,
+        bio: user.bio,
+        song: user.songs[Math.floor(Math.random()*user.songs.length)],
+      },
+    };
+
+    PUBLISHER.publish(Buffer.from(JSON.stringify(event)), function(err, messageId) {
+      if (err) {
+        return response.status(500).json(err);
+      }
+      return response.status(201).end();
+    });
+
+  }).catch(function(err) {
+    // Firestore apparently failed.
+    return response.status(500).json(err);
   });
 
 });
