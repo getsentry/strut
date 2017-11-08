@@ -62,8 +62,13 @@ def main(cache, project, subscription, max_latency):
     import time
     import json
     from google.cloud import pubsub_v1
+    from google.cloud.pubsub_v1.subscriber.policy.thread import Policy
 
-    client = pubsub_v1.SubscriberClient()
+    class RetryPolicy(Policy):
+        def on_exception(self, exception):
+            time.sleep(0.1)
+
+    client = pubsub_v1.SubscriberClient(policy_class=RetryPolicy)
     subscription = client.subscription_path(project, subscription)
 
     manager = Manager(cache)
