@@ -61,6 +61,7 @@ class Manager(object):
 def main(cache, project, subscription, max_latency):
     import time
     import json
+    from collections import OrderedDict
     from google.cloud import pubsub_v1
     from google.cloud.pubsub_v1.subscriber.policy.thread import Policy
 
@@ -73,13 +74,27 @@ def main(cache, project, subscription, max_latency):
 
     manager = Manager(cache)
 
+    deliveries = OrderedDict()
+
     def cb(message):
         message.ack()
         data = json.loads(message.data)
+
+        # Messages are delivered as at-least-once, so it's
+        # possible to get duplicates.
+        if data['id'] in deliveries:
+            return
+
+        # Keep track of 20 ids for duplicate detection
+        deliveries[data['id']] = None
+        if len(deliveries) > 20:
+            deliveries.popitem()
+
         latency = (time.time()*1000) - data['ts']
 
         if latency > max_latency * 1000:
-            click.echo('!too old of a message, ignoring')
+            click.echo('! too old of a message, ignoring')
+            print(data)
             return
 
         click.echo('> Latency: %dms' % latency)
