@@ -54,10 +54,10 @@ class Manager(object):
 
 
 @click.command()
-@click.option('--cache', type=click.Path(exists=True))
-@click.option('--project')
-@click.option('--subscription')
-@click.option('--max-latency', default=10)
+@click.option('--cache', type=click.Path(exists=True), help='path to cache song downloads')
+@click.option('--project', help='Google project id')
+@click.option('--subscription', help='pubsub subscription name')
+@click.option('--max-latency', default=10, help='max latency in seconds before message is discarded')
 def main(cache, project, subscription, max_latency):
     import time
     import json
