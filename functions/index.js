@@ -68,6 +68,7 @@ exports.lockitron = functions.https.onRequest(function(request, response) {
 
     var event = {
       id: uuid4(),
+      ts: +new Date(),
       user: {
         email: email,
         bio: user.bio,
