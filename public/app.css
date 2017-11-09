@@ -8,6 +8,28 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Super trivial global state management */
+body.loading {
+  display: none;
+}
+
+body.logged-out .User-nav {
+  display: none;
+}
+
+body.logged-in #btn-login {
+  display: none;
+}
+
+body.logged-out .main {
+  display: none;
+}
+
+body.logged-in .login-prompt {
+  display: none;
+}
+/* */
+
 img {
   max-width: 100%;
 }
@@ -38,7 +60,7 @@ img {
 }
 
 .User-nav button {
-  transform: rotate(-6deg) skewX(5deg);  
+  transform: rotate(-6deg) skewX(5deg);
   font-size: 22px;
 }
 
@@ -51,7 +73,7 @@ img {
   font-size: 18px;
   color: #fff;
   padding: 12px 24px;
-  transform: rotate(-4deg) skewX(5deg); 
+  transform: rotate(-4deg) skewX(5deg);
 }
 
 .btn:hover {

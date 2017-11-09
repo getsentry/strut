@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" "text/css" href="/fonts/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/app.css">
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-firestore.js"></script>
+    <script>window.Strut = {};</script>
+    <script src="/firebase.js"></script>
+    <script src="/app.js"></script>
+    <title>STRUT</title>
+  </head>
+  <body class="loading">
+    <div class="App">
+      <div class="App-header">
+        <img class="App-logo" src="/logo.svg" />
+        <div class="pull-right">
+          <div class="User-nav">
+            <img id="img-avatar" />
+            <button id="btn-logout" class="btn">Log Out</button>
+          </div>
+
+          <button id="btn-login" class="btn">Log In</button>
+        </div>
+      </div>
+
+      <div class="row main">
+
+        <div class="column">
+          <div class="field">
+            <label>email</label>
+            <input id="input-email" class="Input" type="text" value="" />
+          </div>
+
+          <div class="field">
+            <label>bio</label>
+            <input id="input-bio" class="Input" type="text" value="" />
+          </div>
+        </div>
+
+        <div class="column">
+          <h6>Songs</h6>
+          <div class="song-list">
+            <div class="song">
+              <div class="song-thumb">
+                <img src="https://d3vv6lp55qjaqc.cloudfront.net/items/3W2T382C29363I0l071Y/Image%202017-11-08%20at%204.43.49%20PM.jpg?X-CloudApp-Visitor-Id=17234&v=3b71512d" />
+              </div>
+              <div class="song-desc">
+                <h6>PARTY HARD</h6>
+                <div>Starts at 0s &amp; plays for 5s</div>
+              </div>
+            </div>
+          </div>
+          <button class="btn">Add song</button>
+        </div>
+
+      </div>
+
+      <div class="wrapper login-prompt">
+        <p>Please sign in to continue.</p>
+      </div>
+    </div>
+  </body>
+</html>
