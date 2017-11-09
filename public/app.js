@@ -27,6 +27,7 @@ auth.onAuthStateChanged(function(user) {
 
 $('btn-logout').addEventListener('click', logout);
 $('btn-login').addEventListener('click', login);
+$('btn-add-song').addEventListener('click', addSong);
 
 function logout() {
   auth.signOut().then(function() {
@@ -55,6 +56,7 @@ function getProfile() {
   userDoc.get().then(function(doc) {
     if (doc.exists) {
       UserProfile = doc.data();
+      UserProfile.songs = UserProfile.songs || [];
       renderProfile();
     } else {
       createProfile();
@@ -66,10 +68,13 @@ function getProfile() {
 
 function createProfile() {
   var user = auth.currentUser;
-  db.collection('users').doc(user.email).add({
+  UserProfile = {
     email: user.email,
-    name: user.displayName
-  });
+    bio: '',
+    songs: []
+  };
+
+  saveProfile();
 }
 
 function renderProfile() {
@@ -85,15 +90,35 @@ function renderProfile() {
   inputBio.value = UserProfile.bio;
 
   for (var i=0; i<UserProfile.songs.length; i++) {
-    addSong(UserProfile.songs[i]);
+    renderSong(UserProfile.songs[i]);
   }
 }
 
-function clearSongs() {
-  //
+function saveProfile() {
+  db.collection('users').doc(UserProfile.email).set(UserProfile);
 }
 
-function addSong(song) {
+function clearSongs() {
+  while (songList.firstChild) {
+    songList.removeChild(songList.firstChild);
+  }
+}
+
+function addSong() {
+  UserProfile.songs.push({
+    type: 'youtube',
+    options: {
+      video_id: window.prompt('YouTube video id?'),
+      start: parseInt(window.prompt('start time? (in seconds)', '0'), 10),
+      duration: parseInt(window.prompt('Duration? (in seconds)', '5'), 10)
+    }
+  });
+
+  saveProfile();
+  renderProfile();
+}
+
+function renderSong(song) {
   var div = document.importNode(songTemplate.content, true);
   div.querySelector('.song-thumb img').src = 'https://img.youtube.com/vi/' + song.options.video_id + '/0.jpg';
   div.querySelector('.song-desc h6').textContent = song.options.video_id;
