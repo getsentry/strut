@@ -13,6 +13,8 @@ var UserProfile = null;
 var avatarImage = $('img-avatar');
 var inputEmail = $('input-email');
 var inputBio = $('input-bio');
+var songList = $('song-list');
+var songTemplate = $('song-template');
 
 auth.onAuthStateChanged(function(user) {
   if (user) {
@@ -91,8 +93,12 @@ function clearSongs() {
   //
 }
 
-function addSong() {
-  //
+function addSong(song) {
+  var div = document.importNode(songTemplate.content, true);
+  div.querySelector('.song-thumb img').src = 'https://img.youtube.com/vi/' + song.options.video_id + '/0.jpg';
+  div.querySelector('.song-desc h6').textContent = song.options.video_id;
+  div.querySelector('.song-desc div').textContent = 'Starts at ' + song.options.start + 's & plays for ' + song.options.duration + 's';
+  songList.appendChild(div);
 }
 
 };

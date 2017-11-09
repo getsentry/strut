@@ -42,17 +42,7 @@
 
         <div class="column">
           <h6>Songs</h6>
-          <div class="song-list">
-            <div class="song">
-              <div class="song-thumb">
-                <img src="https://d3vv6lp55qjaqc.cloudfront.net/items/3W2T382C29363I0l071Y/Image%202017-11-08%20at%204.43.49%20PM.jpg?X-CloudApp-Visitor-Id=17234&v=3b71512d" />
-              </div>
-              <div class="song-desc">
-                <h6>PARTY HARD</h6>
-                <div>Starts at 0s &amp; plays for 5s</div>
-              </div>
-            </div>
-          </div>
+          <div id="song-list" class="song-list"></div>
           <button class="btn">Add song</button>
         </div>
 
@@ -62,5 +52,18 @@
         <p>Please sign in to continue.</p>
       </div>
     </div>
+
+    <template id="song-template">
+      <div class="song">
+        <div class="song-thumb">
+          <img src="https://d3vv6lp55qjaqc.cloudfront.net/items/3W2T382C29363I0l071Y/Image%202017-11-08%20at%204.43.49%20PM.jpg?X-CloudApp-Visitor-Id=17234&v=3b71512d" />
+        </div>
+        <div class="song-desc">
+          <h6>PARTY HARD</h6>
+          <div>Starts at 0s &amp; plays for 5s</div>
+        </div>
+      </div>
+    </template>
+
   </body>
 </html>
