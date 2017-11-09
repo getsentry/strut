@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Logo from './logo.svg';
 import { auth, provider, db } from './firebase.js';
 import firebase from 'firebase';
 
@@ -94,37 +95,52 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h1>STRUT™</h1>
+          <img className="App-logo" src={Logo} />
+          <div className="pull-right">
           {this.state.user ?
-            <button onClick={this.logout}>Log Out</button>                
+            <div class="User-nav">
+              <img src={this.state.user.photoURL} />
+              <button class="btn" onClick={this.logout}>Log Out</button>     
+            </div>
             :
-            <button onClick={this.login}>Log In</button>              
+            <button onClick={this.login} className="btn">Log In</button>              
           }
+          </div>
         </div>
         {this.state.user && this.state.profile ?
-          <div>
-            hi {this.state.user.displayName}
-            <div className='user-profile'>
-              <img src={this.state.user.photoURL} />
+          <div className="row">
+            <div className="column">
+
+            <div className="field">
+              <label>email</label>
+              <input class="Input" type="text" defaultValue={this.state.profile.email} />
             </div>
-            <label>email</label>
-            <input type="text" defaultValue={this.state.profile.email} />
             
-            <label>bio</label>
-            <input type="text" defaultValue={this.state.profile.bio} />
+            <div className="field">
+              <label>bio</label>
+              <input className="Input" type="text" defaultValue={this.state.profile.bio} />
+            </div>
 
+            </div>
+            <div className="column">
             <h6>Songs</h6>
-
+            <div className="song-list">
             {this.state.profile.songs &&
               this.state.profile.songs.map((song, index) =>
-              <div key={index}>
-                Song {index + 1}:
-                <div>Start: {song.options.start}</div>
-                <div>Duration: {song.options.duration}</div>
-                <div>ID: {song.options.video_id}</div>
+              <div className="song" key={index}>
+                <div className="song-thumb">
+                  <img src="https://d3vv6lp55qjaqc.cloudfront.net/items/3W2T382C29363I0l071Y/Image%202017-11-08%20at%204.43.49%20PM.jpg?X-CloudApp-Visitor-Id=17234&v=3b71512d" />
+                </div>
+                <div className="song-desc">
+                  <h6>PARTY HARD</h6>
+                  <div>Starts at {song.options.start}s &amp; plays for {song.options.duration}s </div>
+                </div>
               </div>
             )
-          }
+            }
+            </div>
+            <button className="btn">Add song</button>
+            </div>
           </div>
           :
           <div className='wrapper'>

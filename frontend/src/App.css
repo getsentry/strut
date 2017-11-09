@@ -1,24 +1,148 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Blackout;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+}
+
 .App {
-  text-align: center;
+  max-width: 960px;
+  margin: 40px auto;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  animation: App-logo-spin infinite 1s ease;
+  height: 64px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  margin-bottom: 100px;
 }
 
-.App-intro {
-  font-size: large;
+.User-nav {
+  display: flex;
+  height: 64px;
+}
+
+.User-nav img {
+  width: 64px;
+  height: 64px;
+  transform: rotate(5deg) skewX(5deg);
+}
+
+.User-nav button {
+  transform: rotate(-6deg) skewX(5deg);  
+  font-size: 22px;
+}
+
+.btn {
+  cursor: pointer;
+  font-family: Blackout;
+  border: 0;
+  border-radius: 0;
+  background: #000;
+  font-size: 18px;
+  color: #fff;
+  padding: 12px 24px;
+  transform: rotate(-4deg) skewX(5deg); 
+}
+
+.btn:hover {
+  animation: Input-focus 1 .5s ease forwards;
+}
+
+.row {
+  clear: both;
+  display: flex;
+  margin-left: -40px;
+}
+
+.column {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.column:first-child {
+  width: 66.667%;
+}
+
+.column:last-child {
+  width: 33.33%;
+}
+
+.Input {
+  font-family: Blackout;
+  background: #FFE400;
+  border: 0;
+  font-size: 22px;
+  padding: 24px 36px;
+  transform: rotate(2.2deg) skewX(3deg);
+  width: 100%;
+  transition: background-color .2s ease;
+}
+
+.Input:focus {
+  background-color: #FF00B4;
+  outline: 0;
+  animation: Input-focus 1 .5s ease forwards;
+}
+
+.field {
+  margin-bottom: 40px;
+}
+
+h6, .field label {
+  font-size: 22px;
+  display: block;
+  margin: 0 0 24px;
+}
+
+
+.song-list {
+  margin-bottom: 30px;
+}
+
+.song {
+  display: flex;
+}
+
+.song h6 {
+  margin-top: 2px;
+  margin-bottom: 6px;
+}
+
+.song-thumb {
+  width: 62px;
+  height: 48px;
+  margin-right: 20px;
+}
+
+.song-desc {
+  font-size: 14px;
+}
+
+.pull-right {
+  float: right;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  0% { transform: rotate(0deg) scale(.5); }
+  50% { transform: scale(1.2, 1.2); }
+  100% { transform: rotate(360deg) scale(.5); }
+}
+
+@keyframes Input-focus {
+  from { transform: rotate(2.2deg) skewX(3deg) scale(1); }
+  to { transform: rotate(-5.2deg) skewX(23deg) scale(1.4); }
+}
+@keyframes Input-focus-alt {
+  from { transform: rotate(2.2deg) skewX(3deg) scale(1); }
+  to { transform: rotate(-5.2deg) skewX(23deg) scale(1.4); }
 }
