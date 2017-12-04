@@ -2,10 +2,13 @@
   box-sizing: border-box;
 }
 
-body {
+body, html {
   font-family: Blackout;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
+  background: #000;
+  padding: 0;
+  margin: 0;
 }
 
 /* Super trivial global state management */
@@ -34,9 +37,14 @@ img {
   max-width: 100%;
 }
 
+.App-wrapper {
+  background: #fff;
+}
+
 .App {
   max-width: 960px;
-  margin: 40px auto;
+  margin: 0 auto;
+  padding: 60px 0 80px;
 }
 
 .App-logo {
@@ -45,7 +53,23 @@ img {
 }
 
 .App-header {
-  margin-bottom: 100px;
+  margin-bottom: 60px;
+}
+
+.App-footer {
+  font-family: sans-serif;
+  color: #7a7f83;
+  text-align: center;
+  padding: 60px 0;
+}
+
+.App-footer strong {
+  font-family: Blackout;
+  color: #fff;
+}
+
+.App-footer strong sup {
+  font-size: .5em;
 }
 
 .User-nav {
@@ -84,6 +108,7 @@ img {
   clear: both;
   display: flex;
   margin-left: -40px;
+  margin-right: -40px;
 }
 
 .column {
@@ -104,16 +129,24 @@ img {
   background: #FFE400;
   border: 0;
   font-size: 22px;
-  padding: 24px 36px;
+  padding: 15px 20px;
   transform: rotate(2.2deg) skewX(3deg);
   width: 100%;
   transition: background-color .2s ease;
+}
+
+.Input::placeholder {
+  color: rgb(198, 170, 13);
 }
 
 .Input:focus {
   background-color: #FF00B4;
   outline: 0;
   animation: Input-focus 1 .5s ease forwards;
+}
+
+.Input:focus::placeholder {
+  color: rgb(197, 5, 143);
 }
 
 .field {
@@ -128,11 +161,19 @@ h6, .field label {
 
 
 .song-list {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .song {
+  position: relative;
   display: flex;
+  background: rgb(215, 221, 227);
+  border: 0;
+  font-size: 22px;
+  padding: 15px 80px 15px 20px;
+  transform: rotate(-2.2deg) skewX(-3deg);
+  width: 100%;
+  transition: background-color .2s ease;
 }
 
 .song h6 {
@@ -150,8 +191,92 @@ h6, .field label {
   font-size: 14px;
 }
 
+.song .delete {
+  position: absolute;
+  right: 26px;
+  top: 26px;
+  opacity: 0.3;
+  transition: .15s ease opacity;
+}
+
+.song .delete:hover {
+  opacity: .75;
+}
+
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255, .8);
+}
+
+.modal {
+  width: 600px;
+  background: #fff;
+  transform: rotate(2.2deg) skewX(3deg);
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  margin-left: -300px;
+  box-shadow: 0 10px 30px rgba(0,0,0, .3);
+}
+
+.modal-header {
+  padding: 10px 30px;
+  background: #000;
+  color: #fff;
+}
+
+.modal-body {
+  padding: 30px 30px 0;
+  background: #fff;
+}
+
+.modal-footer {
+  padding: 10px 30px 30px;
+  overflow: hidden;
+}
+
 .pull-right {
   float: right;
+}
+
+.modal-body .row {
+  margin: 0 -20px 15px;
+  align-items: center;
+}
+
+.modal-body .row em {
+  display: block;
+  color: #8d9398;
+  font-size: .8em;
+}
+
+.modal-body .column {
+  margin: 0 20px;
+}
+
+.modal-body .column:first-child {
+  width: 25%;
+}
+
+.modal-body .column:last-child {
+  width: 75%;
+}
+
+.modal-footer .btn {
+  transform: rotate(1.2deg) skewX(2deg)
+}
+
+.modal-body .Input {
+  font-size: 18px;
+  transform: rotate(-.5deg) skewX(-2deg)
+}
+
+.modal-body .Input:focus {
+  animation: none;
 }
 
 @keyframes App-logo-spin {
