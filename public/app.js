@@ -105,12 +105,21 @@ function clearSongs() {
 }
 
 function addSong() {
+  var videoId = window.prompt('YouTube video id?');
+  if (!videoId) return alert('Missing id');
+  videoId = YouTubeGetID(videoId);
+
+  var start = parseInt(window.prompt('start time? (in seconds)', '0'), 10)
+  if (isNaN(start)) return alert('Invalid start time');
+  var duration = parseInt(window.prompt('Duration? (in seconds)', '5'), 10)
+  if (isNaN(duration)) return alert('Invalid duration');
+
   UserProfile.songs.push({
     type: 'youtube',
     options: {
-      video_id: window.prompt('YouTube video id?'),
-      start: parseInt(window.prompt('start time? (in seconds)', '0'), 10),
-      duration: parseInt(window.prompt('Duration? (in seconds)', '5'), 10)
+      video_id: videoId,
+      start: start,
+      duration: duration
     }
   });
 
@@ -124,6 +133,15 @@ function renderSong(song) {
   div.querySelector('.song-desc h6').textContent = song.options.video_id;
   div.querySelector('.song-desc div').textContent = 'Starts at ' + song.options.start + 's & plays for ' + song.options.duration + 's';
   songList.appendChild(div);
+}
+
+// Adapted from https://gist.github.com/takien/4077195
+function YouTubeGetID(url){
+  url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+  if (url[2] !== undefined) {
+    url = url[2].split(/[^0-9a-z_\-]/i);
+  }
+  return url[0]
 }
 
 };
