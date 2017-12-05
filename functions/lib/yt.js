@@ -25,7 +25,12 @@ exports.processSong = function(bucket, song, cb) {
     if (err) return cb(err);
     if (exists) return cb();
 
-    const ins = ytdl(song.video_id, {filter: 'audioonly'});
+    try {
+      var ins = ytdl(song.video_id, {filter: 'audioonly'});
+    } catch(e) {
+      console.log(e, song);
+      return;
+    }
     const outs = file.createWriteStream({
       metadata: {
         contentType: 'audio/mpeg',

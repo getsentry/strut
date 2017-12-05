@@ -128,6 +128,7 @@ function addSong() {
   var videoId = inputUrl.value;
   if (!videoId) return alert('Missing id');
   videoId = YouTubeGetID(videoId);
+  if (videoId.length !== 11) return alert('Bad YouTube url or id');
 
   var start = parseInt(inputStart.value, 10)
   if (isNaN(start)) return alert('Invalid start time');

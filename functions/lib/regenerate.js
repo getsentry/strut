@@ -18,6 +18,7 @@ module.exports = function(options) {
           if (song.type !== 'youtube') {
             continue;
           }
+          if (!song.options) { continue; }
           processSong(bucket, song.options, function(err) {
             if (err) {
               console.log(err);
