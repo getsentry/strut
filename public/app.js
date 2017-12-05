@@ -90,7 +90,7 @@ function renderProfile() {
   inputBio.value = UserProfile.bio;
 
   for (var i=0; i<UserProfile.songs.length; i++) {
-    renderSong(UserProfile.songs[i]);
+    renderSong(i, UserProfile.songs[i]);
   }
 }
 
@@ -127,11 +127,16 @@ function addSong() {
   renderProfile();
 }
 
-function renderSong(song) {
+function renderSong(index, song) {
   var div = document.importNode(songTemplate.content, true);
   div.querySelector('.song-thumb img').src = 'https://img.youtube.com/vi/' + song.options.video_id + '/0.jpg';
   div.querySelector('.song-desc h6').textContent = song.options.video_id;
   div.querySelector('.song-desc div').textContent = 'Starts at ' + song.options.start + 's & plays for ' + song.options.duration + 's';
+  div.querySelector('.delete').addEventListener('click', function() {
+    UserProfile.songs.splice(index, 1);
+    saveProfile();
+    renderProfile();
+  });
   songList.appendChild(div);
 }
 
@@ -141,7 +146,7 @@ function YouTubeGetID(url){
   if (url[2] !== undefined) {
     url = url[2].split(/[^0-9a-z_\-]/i);
   }
-  return url[0]
+  return url[0];
 }
 
 };
