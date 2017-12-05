@@ -60,7 +60,7 @@
       The best part of waking up is <strong>STRUT<sup>™</sup></strong>, <strong>STRUT<sup>™</sup></strong>, <strong>STRUT<sup>™</sup></strong>, <strong>STRUT<sup>™</sup></strong>, <strong>STRUT<sup>™</sup></strong>.
     </div>
 
-    <div class="modal-wrapper" style="display: none;">
+    <div id="modal-add-song" class="modal-wrapper hidden">
       <div class="modal">
         <div class="modal-header">
           <h3>Add a song</h3>
@@ -69,24 +69,24 @@
           <div class="row field">
             <div class="column">YouTube URL:</div>
             <div class="column">
-              <input type="text" class="Input" placeholder="https://www.youtube.com/watch?v=6YMPAH67f4o">
+              <input id="input-url" type="text" class="Input" placeholder="https://www.youtube.com/watch?v=6YMPAH67f4o">
             </div>
           </div>
           <div class="row field">
               <div class="column">Start time <em>in seconds</em></div>
               <div class="column">
-                <input type="text" class="Input" placeholder="128">
+                <input id="input-start" type="text" class="Input" placeholder="128">
               </div>
             </div>
             <div class="row field">
                 <div class="column">Play duration <em>in seconds</em></div>
                 <div class="column">
-                  <input type="text" class="Input" placeholder="6">
+                  <input id="input-duration" type="text" class="Input" placeholder="6">
                 </div>
               </div>
         </div>
         <div class="modal-footer">
-          <button id="btn-add-song" class="btn pull-right">PIPE IT UP</button>
+          <button id="btn-add-song2" class="btn pull-right">PIPE IT UP</button>
         </div>
       </div>
     </div>

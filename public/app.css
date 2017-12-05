@@ -294,3 +294,7 @@ h6, .field label {
   from { transform: rotate(2.2deg) skewX(3deg) scale(1); }
   to { transform: rotate(-5.2deg) skewX(23deg) scale(1.4); }
 }
+
+.hidden {
+  display: none;
+}

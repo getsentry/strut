@@ -15,6 +15,10 @@ var inputEmail = $('input-email');
 var inputBio = $('input-bio') || {};
 var songList = $('song-list');
 var songTemplate = $('song-template');
+var addSongModal = $('modal-add-song');
+var inputUrl = $('input-url');
+var inputStart = $('input-start');
+var inputDuration = $('input-duration');
 
 auth.onAuthStateChanged(function(user) {
   if (user) {
@@ -27,7 +31,8 @@ auth.onAuthStateChanged(function(user) {
 
 $('btn-logout').addEventListener('click', logout);
 $('btn-login').addEventListener('click', login);
-$('btn-add-song').addEventListener('click', addSong);
+$('btn-add-song').addEventListener('click', showAddSong);
+$('btn-add-song2').addEventListener('click', addSong);
 
 function logout() {
   auth.signOut().then(function() {
@@ -45,6 +50,14 @@ function login() {
   }).catch(function(error) {
     alert(error);
   });
+}
+
+function hide(e) {
+  e.classList.add('hidden');
+}
+
+function show(e) {
+  e.classList.remove('hidden');
 }
 
 function getProfile() {
@@ -104,14 +117,21 @@ function clearSongs() {
   }
 }
 
+function showAddSong() {
+  inputUrl.value = '';
+  inputStart.value = '';
+  inputDuration.value = '';
+  show(addSongModal);
+}
+
 function addSong() {
-  var videoId = window.prompt('YouTube video id?');
+  var videoId = inputUrl.value;
   if (!videoId) return alert('Missing id');
   videoId = YouTubeGetID(videoId);
 
-  var start = parseInt(window.prompt('start time? (in seconds)', '0'), 10)
+  var start = parseInt(inputStart.value, 10)
   if (isNaN(start)) return alert('Invalid start time');
-  var duration = parseInt(window.prompt('Duration? (in seconds)', '5'), 10)
+  var duration = parseInt(inputDuration.value, 10)
   if (isNaN(duration)) return alert('Invalid duration');
 
   UserProfile.songs.push({
@@ -125,6 +145,8 @@ function addSong() {
 
   saveProfile();
   renderProfile();
+
+  hide(addSongModal);
 }
 
 function renderSong(index, song) {
