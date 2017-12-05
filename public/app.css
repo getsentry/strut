@@ -130,7 +130,7 @@ img {
   border: 0;
   font-size: 22px;
   padding: 15px 20px;
-  transform: rotate(2.2deg) skewX(3deg);
+  transform: rotate(-2.2deg) skewX(3deg);
   width: 100%;
   transition: background-color .2s ease;
 }
@@ -161,7 +161,7 @@ h6, .field label {
 
 
 .song-list {
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .song {
@@ -174,6 +174,7 @@ h6, .field label {
   transform: rotate(-2.2deg) skewX(-3deg);
   width: 100%;
   transition: background-color .2s ease;
+  margin-bottom: 40px;
 }
 
 .song h6 {
