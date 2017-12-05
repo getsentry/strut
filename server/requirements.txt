@@ -1,3 +1,0 @@
-click==6.7
-google-cloud-pubsub==0.29.0
-youtube-dl==2017.11.6

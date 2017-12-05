@@ -56,7 +56,7 @@ module.exports = function lockitron(options) {
         return permissionDenied(response);
       }
 
-      user = doc.data();
+      const user = doc.data();
 
       if (!user) {
         return permissionDenied(response);
