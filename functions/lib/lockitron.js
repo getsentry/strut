@@ -64,6 +64,13 @@ module.exports = function lockitron(options) {
         return permissionDenied(response);
       }
 
+      user.songs = user.songs || [];
+
+      if (!user.songs.length) {
+        console.log('User has no songs', email);
+        return response.status(201).end();
+      }
+
       const event = {
         id: uuid4(),
         ts: +new Date(),
@@ -74,7 +81,7 @@ module.exports = function lockitron(options) {
         },
       };
 
-      console.log(email + ' -> ' + event.user.song.video_id);
+      console.log(email + ' -> ' + event.user.song.options.video_id);
 
       PUBLISHER.publish(Buffer.from(JSON.stringify(event)), function(err, messageId) {
         if (err) {
