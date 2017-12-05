@@ -53,12 +53,14 @@ module.exports = function lockitron(options) {
 
     firestore.collection('users').doc(email).get().then(function(doc) {
       if (!doc.exists) {
+        console.log('Unknown user', email);
         return permissionDenied(response);
       }
 
       const user = doc.data();
 
       if (!user) {
+        console.log('Unknown user', email);
         return permissionDenied(response);
       }
 
@@ -71,6 +73,8 @@ module.exports = function lockitron(options) {
           song: user.songs[Math.floor(Math.random()*user.songs.length)],
         },
       };
+
+      console.log(email + ' -> ' + event.user.song.video_id);
 
       PUBLISHER.publish(Buffer.from(JSON.stringify(event)), function(err, messageId) {
         if (err) {
