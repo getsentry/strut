@@ -3,5 +3,6 @@ firebase-debug.log
 node_modules
 server/pkg
 server/src/strut/vendor
-server/src/strut/credentials.json
-server/src/strut/strut
+server/credentials.json
+server/strut
+!server/strut/
