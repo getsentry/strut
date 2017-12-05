@@ -134,6 +134,8 @@ function addSong() {
   var duration = parseInt(inputDuration.value, 10)
   if (isNaN(duration)) return alert('Invalid duration');
 
+  if (duration > 15) return alert('Duration must be less than 15 seconds');
+
   UserProfile.songs.push({
     type: 'youtube',
     options: {
