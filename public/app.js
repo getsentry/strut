@@ -12,7 +12,7 @@ var UserProfile = null;
 
 var avatarImage = $('img-avatar');
 var inputEmail = $('input-email');
-var inputBio = $('input-bio');
+var inputBio = $('input-bio') || {};
 var songList = $('song-list');
 var songTemplate = $('song-template');
 
