@@ -22,7 +22,7 @@ var inputDuration = $('input-duration');
 
 auth.onAuthStateChanged(function(user) {
   if (user) {
-    body.className = 'logged-in';
+    body.className = 'loading';
     getProfile();
   } else {
     body.className = 'logged-out';
@@ -45,7 +45,6 @@ function logout() {
 function login() {
   auth.signInWithPopup(provider).then(function(result) {
     var user = result.user;
-    console.log('logged in', user);
     getProfile();
   }).catch(function(error) {
     alert(error);
@@ -105,6 +104,8 @@ function renderProfile() {
   for (var i=0; i<UserProfile.songs.length; i++) {
     renderSong(i, UserProfile.songs[i]);
   }
+
+  body.className = 'logged-in';
 }
 
 function saveProfile() {
