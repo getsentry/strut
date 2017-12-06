@@ -1,6 +1,6 @@
-# STRUT server
+# STRUT™ server
 
-The STRUT server is designed to be run on a Raspberry Pi and is written in Go.
+The STRUT™ server is designed to be run on a Raspberry Pi and is written in Go.
 
 ## Dependencies for building
 
