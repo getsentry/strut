@@ -6,7 +6,9 @@
     "shell": "firebase experimental:functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@google-cloud/pubsub": "^0.14.7",
@@ -16,7 +18,9 @@
     "firebase-functions": "^0.7.3",
     "fluent-ffmpeg": "^2.1.2",
     "uuid": "^3.1.0",
-    "ytdl-core": "^0.18.3"
+    "ytdl-core": "^0.18.3",
+    "snyk": "^1.83.0"
   },
-  "private": true
+  "private": true,
+  "snyk": true
 }
