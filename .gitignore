@@ -1,8 +1,0 @@
-.DS_Store
-firebase-debug.log
-node_modules
-server/pkg
-server/src/strut/vendor
-server/credentials.json
-server/strut
-!server/strut/
